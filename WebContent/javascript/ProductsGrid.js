@@ -1,12 +1,18 @@
 var ProductsGrid = function() {
 
 	// products model 
-	var productModel = function(item) {
+	var productModel = function(item, itemMode) {
 		this.data = {};
 		this.data.id = ko.observable(item.id);
 		this.data.name = ko.observable(item.name);
 		this.data.description = ko.observable(item.description);
 		this.data.price = ko.observable(item.price);
+		this.displayMode = ko.observable(itemMode);
+	};
+
+	var displayMode = {
+		view: "VIEW",
+		edit: "EDIT"
 	};
 
 	var products = ko.observableArray();
@@ -20,8 +26,20 @@ var ProductsGrid = function() {
 
 	var retrieveProductsCallback = function(data) {
 		data.forEach(function(item) {
-			products.push(new productModel(item));
+			products.push(new productModel(item, displayMode.view));
 		});
+	};
+
+	/* Function to add a blank product to the products array. */
+	var addProduct = function() {
+		console.log("Adding a new product");
+		var item = {
+			sku: null,
+			name: null,
+			description: null,
+			price: null
+		};
+		products.push(new productModel(item, displayMode.edit));
 	};
 
 	var deleteProduct = function(product) {
@@ -32,6 +50,16 @@ var ProductsGrid = function() {
 		products.remove(product);
 		console.log("Product [" + product.data.id() + "] deleted");
 	};
+
+	var saveProduct = function(product) {
+		client.addProduct(product, saveProductCallback);
+	};
+
+	var saveProductCallback = function(product, id) {
+		product.data.id(id);
+		product.displayMode(displayMode.view);
+		console.log("Product saved with id [" + product.data.id() + "]");
+	}
 
 	var init = function() {
 
@@ -44,7 +72,10 @@ var ProductsGrid = function() {
 
 	return {
 		products: products,
-		deleteProduct: deleteProduct
+		displayMode: displayMode,
+		deleteProduct: deleteProduct,
+		addProduct: addProduct,
+		saveProduct: saveProduct
 	};
 
 }();

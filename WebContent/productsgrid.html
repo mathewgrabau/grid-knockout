@@ -30,17 +30,33 @@
 					</tr>
 				</thead>
 				<tbody data-bind="foreach: ProductsGrid.products">
-					<tr>
-						<td data-bind="text: data.id"></td>
-						<td data-bind="text: data.name"></td>
-						<td data-bind="text: data.description"></td>
-						<td data-bind="currency: data.price"></td>
-						<td>
-							<a href="#" data-bind="click: ProductsGrid.deleteProduct">Delete</a>
-						</td>
-					</tr>
+						<tr data-bind="if: displayMode() == ProductsGrid.displayMode.view">
+							<td data-bind="text: data.id"></td>
+							<td data-bind="text: data.name"></td>
+							<td data-bind="text: data.description"></td>
+							<td data-bind="currency: data.price"></td>
+							<td>
+								<a href="#" data-bind="click: ProductsGrid.deleteProduct">Delete</a>
+							</td>
+						</tr>
+						<tr data-bind="if: displayMode() == ProductsGrid.displayMode.edit">
+							<td data-bind="text: data.id"></td>
+							<td >
+								<input class="form-control" type="text" data-bind="value: data.name">
+							</td>
+							<td>
+								<input type="text" class="form-control" data-bind="value: data.description">
+							</td>
+							<td>
+								<input type="text" class="form-control" data-bind="value: data.price">
+							</td>
+							<td>
+								<a href="#" data-bind="click: ProductsGrid.saveProduct">Save</a> | <a href="#" data-bind="click: ProductsGrid.deleteProduct">Delete</a>
+							</td>
+						</tr>
 				</tbody>
 			</table>
+			<a href="#" data-bind="click: ProductsGrid.addProduct">+ Add Product</a>
         </div>
       </div>
     </div>
