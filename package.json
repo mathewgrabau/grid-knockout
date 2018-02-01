@@ -9,7 +9,9 @@
     "copy-jquery": "cp -f node_modules/jquery/dist/jquery.js WebContent/javascript",
     "copy-knockout": "cp -f node_modules/knockout/build/output/knockout-latest.js WebContent/javascript",
     "copy-knockout-validation": "cp -f node_modules/knockout.validation/dist/knockout.validation.js WebContent/javascript",
-    "copy-bootstrap": "cp -R node_modules/bootstrap/dist/ WebContent/bootstrap",
+    "copy-bootstrap": "node ./node_modules/os-script copy-bootstrap",
+    "copy-bootstrap:win32": "cp -R node_modules/bootstrap/dist/ WebContent/bootstrap",
+    "copy-bootstrap:darwin": "cp -R node_modules/bootstrap/dist WebContent/bootstrap",
     "build": "npm run copy-jquery & npm run copy-knockout & npm run copy-bootstrap & npm run copy-knockout-validation"
   },
   "author": "",
@@ -20,5 +22,8 @@
     "knockout": "^3.4.2",
     "knockout.validation": "^2.0.3",
     "restify": "^6.3.4"
+  },
+  "devDependencies": {
+    "os-script": "0.0.1-experimental-takoyaki"
   }
 }
