@@ -13,7 +13,19 @@ var ProductsClient = function(url) {
 		});
 	};
 
+	var deleteProduct = function(product, callback) {
+		console.log("Deleting product [" + product.data.id() + "]");
+		$.ajax({
+			url: baseUrl + "/products/" + product.data.id(),
+			type: "DELETE",
+			success: function(result) {
+				callback(product);
+			}
+		})
+	};
+
 	return {
-		getProducts: getProducts
+		getProducts: getProducts,
+		deleteProduct: deleteProduct
 	};
 };

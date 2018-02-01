@@ -24,6 +24,15 @@ var ProductsGrid = function() {
 		});
 	};
 
+	var deleteProduct = function(product) {
+		client.deleteProduct(product, deleteProductCallback);
+	};
+
+	var deleteProductCallback = function(product) {
+		products.remove(product);
+		console.log("Product [" + product.data.id() + "] deleted");
+	};
+
 	var init = function() {
 
 		retrieveProducts();
@@ -34,7 +43,8 @@ var ProductsGrid = function() {
 	$(init);
 
 	return {
-		products: products
+		products: products,
+		deleteProduct: deleteProduct
 	};
 
 }();
