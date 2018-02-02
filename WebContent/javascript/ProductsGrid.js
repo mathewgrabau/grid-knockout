@@ -59,7 +59,23 @@ var ProductsGrid = function() {
 		product.data.id(id);
 		product.displayMode(displayMode.view);
 		console.log("Product saved with id [" + product.data.id() + "]");
-	}
+	};
+
+	var editProduct = function(product) {
+		// Start editing the product
+		product.displayMode(displayMode.edit);
+		console.log("Editing product [" + product.data.id() + "]");
+	};
+
+	var updateProduct = function(product) {
+		client.updateProduct(product, updateProductCallback);
+	};
+
+	var updateProductCallback = function(product) {
+		console.log("Product [" + product.data.id() + "] updated");
+		// revert to the displaying mode
+		product.displayMode(displayMode.view);
+	};
 
 	var init = function() {
 
@@ -75,7 +91,9 @@ var ProductsGrid = function() {
 		displayMode: displayMode,
 		deleteProduct: deleteProduct,
 		addProduct: addProduct,
-		saveProduct: saveProduct
+		saveProduct: saveProduct,
+		editProduct: editProduct,
+		updateProduct: updateProduct
 	};
 
 }();

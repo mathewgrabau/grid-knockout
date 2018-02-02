@@ -36,7 +36,7 @@
 							<td data-bind="text: data.description"></td>
 							<td data-bind="currency: data.price"></td>
 							<td>
-								<a href="#" data-bind="click: ProductsGrid.deleteProduct">Delete</a>
+								<a href="#" data-bind="click: ProductsGrid.editProduct">Edit</a> | <a href="#" data-bind="click: ProductsGrid.deleteProduct">Delete</a>
 							</td>
 						</tr>
 						<tr data-bind="if: displayMode() == ProductsGrid.displayMode.edit">
@@ -51,7 +51,8 @@
 								<input type="text" class="form-control" data-bind="value: data.price">
 							</td>
 							<td>
-								<a href="#" data-bind="click: ProductsGrid.saveProduct">Save</a> | <a href="#" data-bind="click: ProductsGrid.deleteProduct">Delete</a>
+								<a href="#" data-bind="visible: data.id() != null, click: ProductsGrid.updateProduct">Update</a>
+								<a href="#" data-bind="visible: data.id() == null, click: ProductsGrid.saveProduct">Save</a> | <a href="#" data-bind="click: ProductsGrid.deleteProduct">Delete</a>
 							</td>
 						</tr>
 				</tbody>
